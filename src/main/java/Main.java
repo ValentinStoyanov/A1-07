@@ -74,7 +74,7 @@ public class Main {
 			System.out.println(" <---NO  d1");
 		}*/
 		
-		Movements.do_movement(cube,"l100000000");
+		Movements.do_movement(cube,"l1");
 		
 	}
 	
