@@ -19,7 +19,8 @@ public class Movements {
 	
 
 	public static Cube do_movement(Cube cube, String move) {
-
+		
+		//System.out.println("Doing movement: "+move);
 		String movement_tipe = move.substring(0, 1);
 		int number = Integer.parseInt(move.substring(1));
 
@@ -27,20 +28,20 @@ public class Movements {
 		case "L":
 		case "l":
 			cube = Calculate_mov_position_L(cube, movement_tipe, number);
-			System.out.println("Estas en el movimiento: " + movement_tipe);
+			//System.out.println("Estas en el movimiento: " + movement_tipe);
 			break;
 		case "D":
 		case "d":
 			cube = Calculate_mov_position_D(cube, movement_tipe, number);
-			System.out.println("Estas en el movimiento: " + movement_tipe);
+			//System.out.println("Estas en el movimiento: " + movement_tipe);
 			break;
 		case "B":
 		case "b":
 			cube = Calculate_mov_position_B(cube, movement_tipe, number);
-			System.out.println("Estas en el movimiento: " + movement_tipe);
+			//System.out.println("Estas en el movimiento: " + movement_tipe);
 			break;
 		default:
-			System.out.println("MOVIMIENTO NO VALIDO");
+			//System.out.println("MOVIMIENTO NO VALIDO");
 		}
 
 		return cube;
