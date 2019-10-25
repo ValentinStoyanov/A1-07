@@ -3,6 +3,7 @@ import org.json.simple.JSONObject;
 
 public class Cube {
 	
+
 	private int[][] back;
 	private int[][] down;
 	private int[][] front;
@@ -13,6 +14,18 @@ public class Cube {
 	public Cube() {
 
 	}
+	
+	public Cube(int[][] back, int[][] down, int[][] front, int[][] left, int[][] right, int[][] up) {
+		super();
+		this.back = back;
+		this.down = down;
+		this.front = front;
+		this.left = left;
+		this.right = right;
+		this.up = up;
+	}
+	
+	
 	
 	
 	public int[][] getBack() {

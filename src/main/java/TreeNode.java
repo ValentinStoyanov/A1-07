@@ -8,13 +8,15 @@ public class TreeNode {
 	private int depth;
 	private double f;
 	
-	public TreeNode(Cube parent, Cube state, String action, int depth, double f) {
-		this.parent = parent;
+	public TreeNode() {
+		
+	}
+	
+	
+	public TreeNode( Cube state, String action) {
 		this.state = state;
 		this.cost = 1;
 		this.action = action;
-		this.depth = depth;
-		this.f = f;
 	}
 
 	public Cube getParent() {

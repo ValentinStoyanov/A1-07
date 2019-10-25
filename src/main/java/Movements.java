@@ -1,7 +1,7 @@
 
 public class Movements {
 	
-	public static void Movements_list (Cube cube) {
+	public static String[] Movements_list (Cube cube) {
 		String [] a = new String[cube.getBack().length*6];
 		String character = "L";
 		int number = 0;
@@ -13,7 +13,8 @@ public class Movements {
 			a[j+cube.getBack().length*3] = "d"+j;
 			a[j+cube.getBack().length*4] = "B"+j;
 			a[j+cube.getBack().length*5] = "b"+j;
-		}	
+		}
+		return a;
 	}
 	
 
