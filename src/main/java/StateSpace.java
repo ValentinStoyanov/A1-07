@@ -1,8 +1,10 @@
 
-public class StateSpace implements Cloneable{
+
+
+public class StateSpace {
 	
 	
-	public static void Succesors(Cube state) throws CloneNotSupportedException {
+	public static void Succesors(Cube state)  {
 		
 		
 		
@@ -11,7 +13,8 @@ public class StateSpace implements Cloneable{
 		Cube[] cubearray = new Cube[movements.length];
 		
 		for(int i = 0; i < movements.length;i++) {
-			Cube aux  =  clone(state);
+			Cube aux = new Cube(clonearray(state.getBack()), clonearray(state.getDown()), clonearray(state.getFront()),
+					clonearray(state.getLeft()), clonearray(state.getRight()), clonearray(state.getUp()));
 			cubearray[i] = Movements.do_movement(aux, movements[i]);
 			Printer.printcube(cubearray[i]);
 			
@@ -20,10 +23,15 @@ public class StateSpace implements Cloneable{
 	}
 	
 	
-	public static Cube clone (Cube c1) throws CloneNotSupportedException {
-		Cube c2 = (Cube) c1.clone();
-		
-		return c2;
+	
+	public static int[][] clonearray(int[][] a1) {
+		int[][] a2 = new int[a1.length][a1.length];
+		for (int i = 0; i < a1.length; i++) {
+			for (int j = 0; j < a1.length; j++) {
+				a2[i][j] = a1[i][j];
+			}
+		}
+		return a2;
 	}
 	
 	

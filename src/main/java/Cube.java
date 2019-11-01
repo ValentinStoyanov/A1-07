@@ -4,12 +4,12 @@ import org.json.simple.JSONObject;
 public class Cube implements Cloneable{
 	
 
-	private int[][] back;
-	private int[][] down;
-	private int[][] front;
-	private int[][] left;
-	private int[][] right;
-	private int[][] up;
+	int[][] back;
+	int[][] down;
+	int[][] front;
+	int[][] left;
+	int[][] right;
+	int[][] up;
 	
 	public Cube() {
 
@@ -25,11 +25,9 @@ public class Cube implements Cloneable{
 		this.up = up;
 	}
 	
-	 public Object clone() throws  CloneNotSupportedException 
-	 { 
-		 return super.clone(); 
-	 }
-	
+	protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 	
 	
 	public int[][] getBack() {
