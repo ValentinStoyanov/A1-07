@@ -13,7 +13,6 @@ public class Frontier {
 		datatest();
 		
 		
-
 	}
 	
 	public static void datatest () {
