@@ -1,19 +1,24 @@
+import java.util.ArrayList;
 
 public class StateSpace {
+	
+	
+	
 
-	public static void Succesors(Cube state) {
-
+	public static ArrayList<Successor> Succesors(Cube state) {
+		ArrayList<Successor> successors = new ArrayList<>();
 		String[] movements = Movements.Movements_list(state);
-
 		Cube[] cubearray = new Cube[movements.length];
-
 		for (int i = 0; i < movements.length; i++) {
 			Cube aux = new Cube(clonearray(state.getBack()), clonearray(state.getDown()), clonearray(state.getFront()),
 					clonearray(state.getLeft()), clonearray(state.getRight()), clonearray(state.getUp()));
 			cubearray[i] = Movements.do_movement(aux, movements[i]);
+			Successor s = new Successor(movements[i], aux, 1);
+			successors.add(s);
 			Printer.printcube(cubearray[i]);
-
 		}
+		return successors;
+		
 	}
 
 	public static int[][] clonearray(int[][] a1) {
