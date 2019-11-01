@@ -1,7 +1,7 @@
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class Cube {
+public class Cube implements Cloneable{
 	
 
 	private int[][] back;
@@ -25,6 +25,10 @@ public class Cube {
 		this.up = up;
 	}
 	
+	 public Object clone() throws  CloneNotSupportedException 
+	 { 
+		 return super.clone(); 
+	 }
 	
 	
 	
