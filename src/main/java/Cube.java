@@ -1,7 +1,7 @@
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class Cube implements Cloneable{
+public class Cube implements Comparable<Cube> {
 	
 
 	int[][] back;
@@ -65,6 +65,16 @@ public class Cube implements Cloneable{
 	}
 	public void setUp(int[][] up) {
 		this.up = up;
+	}
+	
+	 public Cube compareTo(Object a) {
+	    return  (Cube) a;
+	}
+
+	@Override
+	public int compareTo(Cube arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
