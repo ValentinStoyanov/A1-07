@@ -5,8 +5,10 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		// Test.tenrowtest();
 		Cube state = importexport.convertjson();
-		ArrayList<Successor> prueba = StateSpace.Succesors(state);
+		//ArrayList<Successor> prueba = StateSpace.Succesors(state);
 		// System.out.print(prueba.toString());
 		// Frontier.main(null);
+		//Printer.printcube(state);
+		SearchAlgorithm.Busqueda (state,"",1,10);
 	}
 }

@@ -8,14 +8,40 @@ import java.util.TreeSet;
 public class Frontier {
 
 	public static void main(String[] args) {
+		stresstest7();
+	}
 
-		datatest();
-		datatest();
-		datatest();
-		datatest();
-		datatest();
-		datatest();
-		datatest();
+	public static void stresstest7() {
+
+		Cube cube = importexport.convertjson();
+		SortedSet<Cube> set = new TreeSet<Cube>();
+		String[] moves = Movements.Movements_list(cube);
+		Cube vacio = new Cube();
+		int i = 0;
+
+		while (true) {
+			int indicemov = (int) (Math.random() * 60);
+			set.add(Movements.do_movement(cube, moves[indicemov]));
+			i++;
+			System.out.println(i);
+		}
+
+	}
+
+	public static void stresstest1() {
+
+		Cube cube = importexport.convertjson();
+		ArrayList<Cube> list = new ArrayList();
+		String[] moves = Movements.Movements_list(cube);
+		Cube vacio = new Cube();
+		int i = 0;
+
+		while (true) {
+			int indicemov = (int) (Math.random() * 60);
+			list.add(Movements.do_movement(cube, moves[indicemov]));
+			i++;
+			System.out.println(i);
+		}
 
 	}
 
@@ -44,7 +70,7 @@ public class Frontier {
 		long startTime = System.nanoTime();
 
 		for (int i = 0; i < 100000; i++) {
-			
+
 			int indicemov = (int) (Math.random() * 60);
 			list.add(Movements.do_movement(cube, moves[indicemov]));
 
@@ -53,16 +79,15 @@ public class Frontier {
 		long endTime = System.nanoTime();
 		endTime = endTime - startTime;
 
-		//System.out.println("Elapsed time in miliseconds: " + endTime);
+		// System.out.println("Elapsed time in miliseconds: " + endTime);
 
 		return endTime;
 	}
-	
-	
+
 	public static long testset() {
 
 		Cube cube = importexport.convertjson();
-		SortedSet<Cube> set = new TreeSet<Cube>(); 
+		SortedSet<Cube> set = new TreeSet<Cube>();
 		String[] moves = Movements.Movements_list(cube);
 		Cube vacio = new Cube();
 
@@ -72,16 +97,15 @@ public class Frontier {
 
 			int indicemov = (int) (Math.random() * 60);
 			set.add(Movements.do_movement(cube, moves[indicemov]));
-			
+
 		}
 
 		long endTime = System.nanoTime();
 		endTime = endTime - startTime;
 
-		//System.out.println("Elapsed time in miliseconds: " + endTime);
+		// System.out.println("Elapsed time in miliseconds: " + endTime);
 
 		return endTime;
 	}
-	
 
 }

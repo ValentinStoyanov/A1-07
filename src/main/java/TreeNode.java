@@ -1,6 +1,8 @@
 
 public class TreeNode {
 
+	
+
 	private Cube parent;
 	private Cube state;
 	private int cost;
@@ -10,6 +12,16 @@ public class TreeNode {
 	
 	public TreeNode() {
 		
+	}
+	
+	public TreeNode(Cube parent, Cube state, int cost, String action, int depth, double f) {
+		super();
+		this.parent = parent;
+		this.state = state;
+		this.cost = cost;
+		this.action = action;
+		this.depth = depth;
+		this.f = f;
 	}
 	
 	
