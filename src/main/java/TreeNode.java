@@ -1,5 +1,5 @@
 
-public class TreeNode {
+public class TreeNode implements Comparable<TreeNode>{
 
 	
 
@@ -77,5 +77,11 @@ public class TreeNode {
 
 	public void setF(double f) {
 		this.f = f;
+	}
+
+	@Override
+	public int compareTo(TreeNode arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
