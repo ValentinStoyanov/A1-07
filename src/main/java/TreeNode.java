@@ -82,6 +82,8 @@ public class TreeNode implements Comparable<TreeNode>{
 	@Override
 	public int compareTo(TreeNode arg0) {
 		// TODO Auto-generated method stub
-		return 0;
+		int i = (int) (f*1000);
+		
+		return i;
 	}
 }

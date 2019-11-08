@@ -49,6 +49,8 @@ public class SearchAlgorithm {
 		boolean solucion = false;
 
 		while (!solucion && prof_Actual >= prof_Max) {
+			Printer.printcube(prob);
+
 			solucion = Busqueda_acotada(prob, estrategia, prof_Actual);
 			prof_Actual = prof_Actual + inc_Prof;
 		}

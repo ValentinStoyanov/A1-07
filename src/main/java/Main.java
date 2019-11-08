@@ -10,6 +10,11 @@ public class Main {
 		// System.out.print(prueba.toString());
 		// Frontier.main(null);
 		//Printer.printcube(state);
-		SearchAlgorithm.Busqueda (state,"",1,10);
+		//SearchAlgorithm.Busqueda (state,"",1,10);
+		ArrayList<Successor> LS = StateSpace.Succesors(state);
+		for(int i = 0; i <LS.size();i++) {
+			Printer.printcube(LS.get(i).getState());
+		}
+		
 	}
 }
