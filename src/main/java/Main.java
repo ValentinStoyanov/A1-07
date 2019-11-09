@@ -5,16 +5,18 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		// Test.tenrowtest();
 		Cube state = importexport.convertjson();
-		state = Movements.do_movement(state, "L0");
+		state = Movements.do_movement(state, "b2");
 		//ArrayList<Successor> prueba = StateSpace.Succesors(state);
 		// System.out.print(prueba.toString());
 		// Frontier.main(null);
 		//Printer.printcube(state);
 		//SearchAlgorithm.Busqueda (state,"",1,10);
-		ArrayList<Successor> LS = StateSpace.Succesors(state);
-		for(int i = 0; i <LS.size();i++) {
-			Printer.printcube(LS.get(i).getState());
-		}
+//		ArrayList<Successor> LS = StateSpace.Succesors(state);
+//		for(int i = 0; i <LS.size();i++) {
+//			Printer.printcube(LS.get(i).getState());
+//		}
+//		
+		System.out.print(SearchAlgorithm.BFS(state));
 		
 	}
 }
