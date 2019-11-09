@@ -97,9 +97,8 @@ public class SearchAlgorithm {
 			for(Successor child : LS) {
 				Cube s = child.getState();
 				if(!explored.contains(s) /*|| child.getCost()<explored.g */) {
-					
+			//https://github.com/aimacode/aima-pseudocode/blob/master/md/Uniform-Cost-Search.md		
 				}
-				
 			}
 		}
 		
