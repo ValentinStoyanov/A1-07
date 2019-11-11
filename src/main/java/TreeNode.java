@@ -1,20 +1,21 @@
+import java.util.Comparator;
 
 public class TreeNode implements Comparable<TreeNode>{
 
 	
 
-	private Cube parent;
+	private TreeNode parent;
 	private Cube state;
 	private int cost;
 	private String action;
 	private int depth;
-	private double f;
+	private int f;
 	
 	public TreeNode() {
 		
 	}
 	
-	public TreeNode(Cube parent, Cube state, int cost, String action, int depth, double f) {
+	public TreeNode(TreeNode parent, Cube state, int cost, String action, int depth, int f) {
 		super();
 		this.parent = parent;
 		this.state = state;
@@ -25,17 +26,21 @@ public class TreeNode implements Comparable<TreeNode>{
 	}
 	
 	
-	public TreeNode( Cube state, String action) {
+	public TreeNode( Cube state) {
 		this.state = state;
-		this.cost = 1;
-		this.action = action;
+		this.parent = null;
+		this.cost = 0;
+		this.action = "";
+		this.depth = 0;
+		this.f = 0;
+		
 	}
 
-	public Cube getParent() {
+	public TreeNode getParent() {
 		return parent;
 	}
 
-	public void setParent(Cube parent) {
+	public void setParent(TreeNode parent) {
 		this.parent = parent;
 	}
 
@@ -71,19 +76,29 @@ public class TreeNode implements Comparable<TreeNode>{
 		this.depth = depth;
 	}
 
-	public double getF() {
+	public int getF() {
 		return f;
 	}
 
-	public void setF(double f) {
+	public void setF(int f) {
 		this.f = f;
 	}
 
 	@Override
-	public int compareTo(TreeNode arg0) {
+	public int compareTo(TreeNode o) {
 		// TODO Auto-generated method stub
-		int i = (int) (f*1000);
-		
-		return i;
+		return this.f -o.getF();
 	}
+
 }
+
+class Sortbyroll implements Comparator<TreeNode> 
+{ 
+
+	@Override
+	public int compare(TreeNode o1, TreeNode o2) {
+		// TODO Auto-generated method stub
+		return o1.getF() - o2.getF();
+	} 
+} 
+

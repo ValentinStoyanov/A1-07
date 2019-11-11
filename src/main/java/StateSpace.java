@@ -5,7 +5,7 @@ public class StateSpace {
 	
 	
 
-	public static ArrayList<Successor> Succesors(Cube state) {
+	public static ArrayList<Successor> Succesors(Cube state, int cost) {
 		ArrayList<Successor> successors = new ArrayList<>();
 		String[] movements = Movements.Movements_list(state);
 		Cube[] cubearray = new Cube[movements.length];

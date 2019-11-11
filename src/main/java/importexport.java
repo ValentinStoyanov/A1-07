@@ -162,7 +162,7 @@ public class importexport {
 		JSONParser jsonParser = new JSONParser();
 		Object obj = null;
 
-		try (FileReader reader = new FileReader("ejemplo1.json")) { // Name of the json file with the cube
+		try (FileReader reader = new FileReader("ejemplo.json")) { // Name of the json file with the cube
 			// Read JSON file
 			obj = jsonParser.parse(reader);
 

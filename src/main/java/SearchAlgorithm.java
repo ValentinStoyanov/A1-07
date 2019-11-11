@@ -18,106 +18,82 @@ public class SearchAlgorithm {
 	// We need to have 2 version: prunning or optimized code and non prunning code
 	// Global value optimization true or false
 
-	public static boolean Busqueda_acotada(Cube prob, String estrategia, int profundidad) {
-		// Proceso de inicialización
-		SortedSet<TreeNode> frontier = new TreeSet<TreeNode>();
-		TreeNode nodo_inicial = new TreeNode(null, prob, 0, "", 0, 0);
-		frontier.add(nodo_inicial);
+	public static boolean busqueda_acotada(Cube Prob, String estrategia, int Prof_max) {
+		SortedSet<TreeNode> frontera = new TreeSet<TreeNode>();
+		TreeNode n_inicial = new TreeNode(null, Prob, 0, "", 0, 0);
+		frontera.add(n_inicial);
 		boolean solucion = false;
 		TreeNode n_actual = null;
 
-		while (!solucion && !frontier.isEmpty()) {
-
-			n_actual = frontier.last();
+		while (!solucion && !frontera.isEmpty()) {
+			n_actual = frontera.first();
+			System.out.println(n_actual.getF());
+			frontera.remove(n_actual);
 			if (StateSpace.isGoal(n_actual.getState())) {
 				solucion = true;
 			} else {
-				ArrayList<Successor> LS = StateSpace.Succesors(n_actual.getState());
-				ArrayList<TreeNode> LN = CreaListaNodosArbol(LS, n_actual.getState(), 0, "");
-				frontier.addAll(LN);
+				ArrayList<Successor> LS = StateSpace.Succesors(n_actual.getState(), n_actual.getCost());
+				ArrayList<TreeNode> LN = CrearListaNodosArbol(LS, n_actual, Prof_max, estrategia);
+				frontera = addnodestofrontier(frontera,LN);
+				
 			}
+			
 		}
 
-		// #Resultado
 		if (solucion) {
 			Printer.printcube(n_actual.getState());
 		} else {
-			System.out.println("NO HAY SOLUCION");
+			solucion = false;
 		}
 		return solucion;
 	}
+	
 
-	public static boolean Busqueda(Cube prob, String estrategia, int prof_Max, int inc_Prof) {
-		int prof_Actual = inc_Prof;
+	public static boolean busqueda(Cube Prob, String estrategia, int Prof_Max, int Inc_Prof) {
+		int Prof_Actual = Inc_Prof;
 		boolean solucion = false;
-		while (!solucion && prof_Actual <= prof_Max) {
-			Printer.printcube(prob);
-			solucion = Busqueda_acotada(prob, estrategia, prof_Actual);
-			prof_Actual = prof_Actual + inc_Prof;
+		while (!solucion && Prof_Actual <= Prof_Max) {
+			solucion = busqueda_acotada(Prob, estrategia, Prof_Actual);
+			Prof_Actual = Prof_Actual + Inc_Prof;
 		}
 		return solucion;
 	}
 
-	public static boolean BFS(Cube prob) {
-		TreeNode nodo_inicial = new TreeNode(null, prob, 0, "", 0, 0);
-		SortedSet<TreeNode> frontier = new TreeSet<TreeNode>();
-		frontier.add(nodo_inicial);
-		SortedSet<Cube> explored = new TreeSet<>();
-		boolean solution = false;
-		while(!frontier.isEmpty()) {
-			TreeNode padre = frontier.first();
-			ArrayList<Successor> LS = StateSpace.Succesors(padre.getState());
-			
-			for(Successor child : LS) {
-				Cube s = child.getState();
-				Printer.printcube(s);
-				if(StateSpace.isGoal(s)) {
-					return solution = true;
-				}else {
-					if(!explored.contains(s)) {
-						explored.add(s);
-					}
-				}
-			}
-		}
-		return  solution;
-	}
-	
-	public static TreeNode UCS(Cube prob) {
-		TreeNode nodo_inicial = new TreeNode(null, prob, 0, "", 0, 0);
-		SortedSet<TreeNode> frontier = new TreeSet<TreeNode>();
-		frontier.add(nodo_inicial);
-		SortedSet<Cube> explored = new TreeSet<>();
-		TreeNode solution = new TreeNode();
-		
-		while(!frontier.isEmpty() && (frontier.first().getCost()>solution.getCost())) {
-			TreeNode padre = frontier.first();
-			
-			ArrayList<Successor> LS = StateSpace.Succesors(padre.getState());
-			for(Successor child : LS) {
-				Cube s = child.getState();
-				if(!explored.contains(s) /*|| child.getCost()<explored.g */) {
-			//https://github.com/aimacode/aima-pseudocode/blob/master/md/Uniform-Cost-Search.md		
-				}
-			}
-		}
-		
-		return solution;
-	}
-	
-	
-
-	public static ArrayList<TreeNode> CreaListaNodosArbol(ArrayList<Successor> LS, Cube nodo_actual, int Prof_Max,
+	public static ArrayList<TreeNode> CrearListaNodosArbol(ArrayList<Successor> lS, TreeNode n_actual, int prof_max,
 			String estrategia) {
-		
+
 		ArrayList<TreeNode> LN = new ArrayList<TreeNode>();
-		for (int i = 0; i < LS.size(); i++) {
-			TreeNode nodo = new TreeNode();
-			nodo.setState(LS.get(i).getState());
-			LN.add(nodo);
+		int cost = n_actual.getCost() + 1;
+		int depth = n_actual.getDepth() + 1;
+		int f = 0;
+		if (estrategia.equals("anchura")) {
+			f = depth;
+		}
+		if (estrategia.equals("profundidad")) {
+			f = -depth;
+		}
+		if (estrategia.equals("costo")) {
+			f = cost;
+		}
+
+		for (int i = 0; i < lS.size() && depth <= prof_max ; i++) {
+			//System.out.println("f: "+f+"  "+"depth: "+depth);
+			//System.out.println(i);
+			LN.add(new TreeNode(n_actual, lS.get(i).getState(), cost, lS.get(i).getAccion(), depth, f));
 		}
 		return LN;
 	}
 	
+	public static SortedSet<TreeNode> addnodestofrontier (SortedSet<TreeNode> frontera, ArrayList<TreeNode> LN) {
+
+		for(int i = 0;  i <LN.size();i++) {
+			frontera.add(LN.get(i));
+		}
+		
+		return frontera;
+		
+		
+		
+	}
 
 }

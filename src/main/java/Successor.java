@@ -3,10 +3,10 @@ public class Successor {
 
 	private String accion;
 	private Cube state;
-	private double cost;
+	private int cost;
 	
 	
-	public Successor(String accion, Cube state, double cost) {
+	public Successor(String accion, Cube state, int cost) {
 		super();
 		this.accion = accion;
 		this.state = state;
@@ -37,13 +37,17 @@ public class Successor {
 	}
 
 
-	public double getCost() {
+	public int getCost() {
 		return cost;
 	}
 
 
-	public void setCost(double cost) {
+	public void setCost(int cost) {
 		this.cost = cost;
+	}
+	@Override
+	public String toString() {
+		return "Successor [accion=" + accion + ", state=" + state + ", cost=" + cost + "]";
 	}
 	
 	
