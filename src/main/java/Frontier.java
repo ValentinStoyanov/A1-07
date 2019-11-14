@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -8,102 +10,77 @@ import java.util.TreeSet;
 public class Frontier {
 
 	public static void main(String[] args) {
-		stresstest7();
+		double linktime = 0;
+		linktime += testlinkedlist();
+		linktime += testlinkedlist();
+		linktime += testlinkedlist();
+		linktime += testlinkedlist(); 
+		linktime += testlinkedlist(); 
+		linktime += testlinkedlist(); 
+		
+		System.out.println("El tiempo medio de la linked list para la insercion de nodos es:  "+(linktime/6)/1000000000);
+		
+		
+		double queuetime = 0;
+		queuetime += testpriorityqueue();
+		queuetime += testpriorityqueue();
+		queuetime += testpriorityqueue();
+		queuetime += testpriorityqueue();
+		queuetime += testpriorityqueue();
+		queuetime += testpriorityqueue();
+		
+		System.out.println("El tiempo medio de la queue para la insercion de nodos es:  "+(queuetime/6)/1000000000);
 	}
 
-	public static void stresstest7() {
+
+	public static long testlinkedlist() {
 
 		Cube cube = importexport.convertjson();
-		SortedSet<Cube> set = new TreeSet<Cube>();
+		LinkedList<TreeNode> x = new LinkedList<TreeNode>();
 		String[] moves = Movements.Movements_list(cube);
-		Cube vacio = new Cube();
-		int i = 0;
-
-		while (true) {
-			int indicemov = (int) (Math.random() * 60);
-			set.add(Movements.do_movement(cube, moves[indicemov]));
-			i++;
-			System.out.println(i);
-		}
-
-	}
-
-	public static void stresstest1() {
-
-		Cube cube = importexport.convertjson();
-		ArrayList<Cube> list = new ArrayList();
-		String[] moves = Movements.Movements_list(cube);
-		Cube vacio = new Cube();
-		int i = 0;
-
-		while (true) {
-			int indicemov = (int) (Math.random() * 60);
-			list.add(Movements.do_movement(cube, moves[indicemov]));
-			i++;
-			System.out.println(i);
-		}
-
-	}
-
-	public static void datatest() {
-		long time1;
-		long time2;
-
-		time1 = testset();
-		time2 = testarraylist();
-
-		if (time1 > time2) {
-			System.out.println("ArrayList is the best");
-		} else {
-			System.out.println("SortedSet is the best");
-		}
-
-	}
-
-	public static long testarraylist() {
-
-		Cube cube = importexport.convertjson();
-		ArrayList<Cube> list = new ArrayList();
-		String[] moves = Movements.Movements_list(cube);
-		Cube vacio = new Cube();
 
 		long startTime = System.nanoTime();
 
-		for (int i = 0; i < 100000; i++) {
+		for (int i = 0; i < 10000000; i++) {
 
-			int indicemov = (int) (Math.random() * 60);
-			list.add(Movements.do_movement(cube, moves[indicemov]));
+			int indicemov = (int) (Math.random() * cube.getBack().length*6);
+			TreeNode a = new TreeNode();
+			a.setState(Movements.do_movement(cube,moves[indicemov]));
+			a.setF((int)Math.random()*10000);
+			x.add(a);
 
 		}
 
 		long endTime = System.nanoTime();
 		endTime = endTime - startTime;
 
-		// System.out.println("Elapsed time in miliseconds: " + endTime);
+		System.out.println("Elapsed time in miliseconds: " + endTime);
 
 		return endTime;
 	}
 
-	public static long testset() {
+	public static long testpriorityqueue() {
 
 		Cube cube = importexport.convertjson();
-		SortedSet<Cube> set = new TreeSet<Cube>();
+		PriorityQueue<TreeNode> x =  new PriorityQueue<TreeNode>(); 
 		String[] moves = Movements.Movements_list(cube);
-		Cube vacio = new Cube();
 
 		long startTime = System.nanoTime();
 
-		for (int i = 0; i < 100000; i++) {
+		for (int i = 0; i < 10000000; i++) {
 
-			int indicemov = (int) (Math.random() * 60);
-			set.add(Movements.do_movement(cube, moves[indicemov]));
+			int indicemov = (int) (Math.random() * cube.getBack().length*6);
+			TreeNode a = new TreeNode();
+			a.setState(Movements.do_movement(cube,moves[indicemov]));
+			a.setF((int)Math.random()*10000);
+			x.add(a);
 
 		}
 
 		long endTime = System.nanoTime();
 		endTime = endTime - startTime;
 
-		// System.out.println("Elapsed time in miliseconds: " + endTime);
+		System.out.println("Elapsed time in miliseconds: " + endTime);
 
 		return endTime;
 	}

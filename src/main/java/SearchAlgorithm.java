@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -19,22 +20,20 @@ public class SearchAlgorithm {
 	// Global value optimization true or false
 
 	public static boolean busqueda_acotada(Cube Prob, String estrategia, int Prof_max) {
-		SortedSet<TreeNode> frontera = new TreeSet<TreeNode>();
+		PriorityQueue<TreeNode> front =  new PriorityQueue<TreeNode>(); 
 		TreeNode n_inicial = new TreeNode(null, Prob, 0, "", 0, 0);
-		frontera.add(n_inicial);
+		front.add(n_inicial);
 		boolean solucion = false;
 		TreeNode n_actual = null;
 
-		while (!solucion && !frontera.isEmpty()) {
-			n_actual = frontera.first();
-			System.out.println(n_actual.getF());
-			frontera.remove(n_actual);
+		while (!solucion && !front.isEmpty()) {
+			n_actual = front.remove();
 			if (StateSpace.isGoal(n_actual.getState())) {
 				solucion = true;
 			} else {
 				ArrayList<Successor> LS = StateSpace.Succesors(n_actual.getState(), n_actual.getCost());
 				ArrayList<TreeNode> LN = CrearListaNodosArbol(LS, n_actual, Prof_max, estrategia);
-				frontera = addnodestofrontier(frontera,LN);
+				front = addnodestofrontier(front,LN);
 				
 			}
 			
@@ -77,20 +76,20 @@ public class SearchAlgorithm {
 		}
 
 		for (int i = 0; i < lS.size() && depth <= prof_max ; i++) {
-			//System.out.println("f: "+f+"  "+"depth: "+depth);
+			System.out.println("f: "+f+"  "+"depth: "+depth);
 			//System.out.println(i);
 			LN.add(new TreeNode(n_actual, lS.get(i).getState(), cost, lS.get(i).getAccion(), depth, f));
 		}
 		return LN;
 	}
 	
-	public static SortedSet<TreeNode> addnodestofrontier (SortedSet<TreeNode> frontera, ArrayList<TreeNode> LN) {
+	public static PriorityQueue<TreeNode> addnodestofrontier (PriorityQueue<TreeNode> front, ArrayList<TreeNode> LN) {
 
 		for(int i = 0;  i <LN.size();i++) {
-			frontera.add(LN.get(i));
+			front.add(LN.get(i));
 		}
 		
-		return frontera;
+		return front;
 		
 		
 		

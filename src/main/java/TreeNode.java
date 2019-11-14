@@ -1,8 +1,6 @@
 import java.util.Comparator;
 
-public class TreeNode implements Comparable<TreeNode>{
-
-	
+public class TreeNode implements Comparable<TreeNode> {
 
 	private TreeNode parent;
 	private Cube state;
@@ -10,11 +8,11 @@ public class TreeNode implements Comparable<TreeNode>{
 	private String action;
 	private int depth;
 	private int f;
-	
+
 	public TreeNode() {
-		
+
 	}
-	
+
 	public TreeNode(TreeNode parent, Cube state, int cost, String action, int depth, int f) {
 		super();
 		this.parent = parent;
@@ -24,16 +22,15 @@ public class TreeNode implements Comparable<TreeNode>{
 		this.depth = depth;
 		this.f = f;
 	}
-	
-	
-	public TreeNode( Cube state) {
+
+	public TreeNode(Cube state) {
 		this.state = state;
 		this.parent = null;
 		this.cost = 0;
 		this.action = "";
 		this.depth = 0;
 		this.f = 0;
-		
+
 	}
 
 	public TreeNode getParent() {
@@ -86,19 +83,17 @@ public class TreeNode implements Comparable<TreeNode>{
 
 	@Override
 	public int compareTo(TreeNode o) {
-		// TODO Auto-generated method stub
-		return this.f -o.getF();
+
+		return this.f - o.getF();
 	}
 
 }
 
-class Sortbyroll implements Comparator<TreeNode> 
-{ 
+class Sortbyroll implements Comparator<TreeNode> {
 
 	@Override
 	public int compare(TreeNode o1, TreeNode o2) {
 		// TODO Auto-generated method stub
 		return o1.getF() - o2.getF();
-	} 
-} 
-
+	}
+}
