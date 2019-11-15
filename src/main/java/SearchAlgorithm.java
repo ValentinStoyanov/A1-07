@@ -37,7 +37,8 @@ public class SearchAlgorithm {
 
 			nodes++;
 
-			importexport.write(n_actual.toString()+"\n");
+			//importexport.write(n_actual.toString()+"\n");
+			System.out.println(n_actual.toString());
 
 			visited.add(new VisitedNode(n_actual.getF(), importexport.getMd5(n_actual.getState())));
 
