@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 
 public class StateSpace {
-	
-	
-	
 
 	public static ArrayList<Successor> Succesors(Cube state, int cost) {
 		ArrayList<Successor> successors = new ArrayList<>();
@@ -15,10 +12,10 @@ public class StateSpace {
 			cubearray[i] = Movements.do_movement(aux, movements[i]);
 			Successor s = new Successor(movements[i], aux, 1);
 			successors.add(s);
-			//Printer.printcube(cubearray[i]);
+			// Printer.printcube(cubearray[i]);
 		}
 		return successors;
-		
+
 	}
 
 	public static int[][] clonearray(int[][] a1) {
@@ -33,13 +30,29 @@ public class StateSpace {
 
 	public static boolean isGoal(Cube state) {
 		boolean bol = true;
-		Cube cube = importexport.convertjson();
-		String a = importexport.getMd5(cube);
-		String b = importexport.getMd5(state);
-		if (!a.equals(b)) {
+
+		if (checklado(state.getBack()) && checklado(state.getDown()) && checklado(state.getFront())
+				&& checklado(state.getLeft()) && checklado(state.getRight()) && checklado(state.getUp())) {
+			bol = true;
+		} else {
 			bol = false;
 		}
 		return bol;
+	}
+
+	public static boolean checklado(int[][] a) {
+		int num1 = a[0][0];
+		int num2;
+		boolean equal = true;
+		for (int i = 0; i < a.length; i++) {
+			for (int j = 0; j < a.length; j++) {
+				if (num1 != a[i][j]) {
+					equal = false;
+				}
+			}
+		}
+
+		return equal;
 	}
 
 }

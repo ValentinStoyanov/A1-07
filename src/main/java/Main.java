@@ -14,12 +14,17 @@ import com.google.common.collect.Multimap;
 public class Main {
 	public static void main(String[] args) throws IOException {
 		
+		double startTime = System.nanoTime();
+
 		Cube state = importexport.convertjson();
-		state = Movements.do_movement(state, "L2");
-		state = Movements.do_movement(state, "L1");
-		state = Movements.do_movement(state, "B1");
-		state = Movements.do_movement(state, "b2");
-		SearchAlgorithm.busqueda(state, "anchura", 5, 1);
+		
+		
+		SearchAlgorithm.busqueda(state, "costo", 6, 1, false);
+		
+		double endTime = System.nanoTime();
+		endTime = endTime - startTime;
+
+		System.out.println("Elapsed time in seconds: " + endTime/1000000000);
 		
 	}
 }

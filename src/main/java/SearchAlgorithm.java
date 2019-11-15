@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.SortedSet;
@@ -19,40 +20,52 @@ public class SearchAlgorithm {
 	// We need to have 2 version: prunning or optimized code and non prunning code
 	// Global value optimization true or false
 
-	public static boolean busqueda_acotada(Cube Prob, String estrategia, int Prof_max) {
-		PriorityQueue<TreeNode> front =  new PriorityQueue<TreeNode>(); 
-		TreeNode n_inicial = new TreeNode(null, Prob, 0, "", 0, 0);
+	public static boolean busqueda_acotada(Cube Prob, String estrategia, int Prof_max, boolean optimized) {
+		ArrayList<VisitedNode> visited = new ArrayList<VisitedNode>();
+		PriorityQueue<TreeNode> front = new PriorityQueue<TreeNode>();
+		TreeNode n_inicial = new TreeNode(0,null, Prob, 0, "", 0, 0);
 		front.add(n_inicial);
+		// System.out.println(n_inicial.toString());
+		visited.add(new VisitedNode(n_inicial.getF(), importexport.getMd5(n_inicial.getState())));
 		boolean solucion = false;
 		TreeNode n_actual = null;
-
+		
+		
 		while (!solucion && !front.isEmpty()) {
 			n_actual = front.remove();
+			int aux = n_actual.getID();
+			n_actual.setID(aux+1);
+			
+			System.out.println(n_actual.toString());
+			visited.add(new VisitedNode(n_actual.getF(), importexport.getMd5(n_actual.getState())));
+
 			if (StateSpace.isGoal(n_actual.getState())) {
 				solucion = true;
 			} else {
 				ArrayList<Successor> LS = StateSpace.Succesors(n_actual.getState(), n_actual.getCost());
 				ArrayList<TreeNode> LN = CrearListaNodosArbol(LS, n_actual, Prof_max, estrategia);
-				front = addnodestofrontier(front,LN);
-				
+				if (optimized) {
+					front = addnodestofrontierOPT(front, LN, visited);
+				} else {
+					front = addnodestofrontier(front, LN);
+				}
 			}
-			
 		}
 
 		if (solucion) {
 			Printer.printcube(n_actual.getState());
+			System.out.println(n_actual.toString());
 		} else {
 			solucion = false;
 		}
 		return solucion;
 	}
-	
 
-	public static boolean busqueda(Cube Prob, String estrategia, int Prof_Max, int Inc_Prof) {
+	public static boolean busqueda(Cube Prob, String estrategia, int Prof_Max, int Inc_Prof, boolean Optimized) {
 		int Prof_Actual = Inc_Prof;
 		boolean solucion = false;
 		while (!solucion && Prof_Actual <= Prof_Max) {
-			solucion = busqueda_acotada(Prob, estrategia, Prof_Actual);
+			solucion = busqueda_acotada(Prob, estrategia, Prof_Actual, Optimized);
 			Prof_Actual = Prof_Actual + Inc_Prof;
 		}
 		return solucion;
@@ -75,24 +88,49 @@ public class SearchAlgorithm {
 			f = cost;
 		}
 
-		for (int i = 0; i < lS.size() && depth <= prof_max ; i++) {
-			System.out.println("f: "+f+"  "+"depth: "+depth);
-			//System.out.println(i);
-			LN.add(new TreeNode(n_actual, lS.get(i).getState(), cost, lS.get(i).getAccion(), depth, f));
+		for (int i = 0; i < lS.size() && depth <= prof_max; i++) {
+			LN.add(new TreeNode(n_actual.getID(),n_actual, lS.get(i).getState(), cost, lS.get(i).getAccion(), depth, f));
 		}
 		return LN;
 	}
-	
-	public static PriorityQueue<TreeNode> addnodestofrontier (PriorityQueue<TreeNode> front, ArrayList<TreeNode> LN) {
 
-		for(int i = 0;  i <LN.size();i++) {
+	public static PriorityQueue<TreeNode> addnodestofrontier(PriorityQueue<TreeNode> front, ArrayList<TreeNode> LN) {
+
+		for (int i = 0; i < LN.size(); i++) {
 			front.add(LN.get(i));
 		}
-		
+
 		return front;
-		
-		
-		
+
+	}
+
+	public static PriorityQueue<TreeNode> addnodestofrontierOPT(PriorityQueue<TreeNode> front, ArrayList<TreeNode> LN,
+			ArrayList<VisitedNode> visited) {
+
+		for (int ln = 0; ln < LN.size(); ln++) {
+			if (nodoisvisited(LN.get(ln), visited)) {
+
+			} else {
+				front.add(LN.get(ln));
+			}
+		}
+
+		return front;
+	}
+
+	public static boolean nodoisvisited(TreeNode node, ArrayList<VisitedNode> visited) {
+		boolean bol = false;
+		String n1, n2;
+		n1 = importexport.getMd5(node.getState());
+		for (int i = 0; i < visited.size(); i++) {
+			n2 = visited.get(i).getMd5();
+
+			if ((node.getF() < visited.get(i).getF()) && (n1.equals(n2))) {
+				bol = true;
+			}
+
+		}
+		return bol;
 	}
 
 }

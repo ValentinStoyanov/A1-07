@@ -2,6 +2,7 @@ import java.util.Comparator;
 
 public class TreeNode implements Comparable<TreeNode> {
 
+	private int ID;
 	private TreeNode parent;
 	private Cube state;
 	private int cost;
@@ -13,8 +14,9 @@ public class TreeNode implements Comparable<TreeNode> {
 
 	}
 
-	public TreeNode(TreeNode parent, Cube state, int cost, String action, int depth, int f) {
+	public TreeNode(int ID,TreeNode parent, Cube state, int cost, String action, int depth, int f) {
 		super();
+		this.ID = ID;
 		this.parent = parent;
 		this.state = state;
 		this.cost = cost;
@@ -85,6 +87,20 @@ public class TreeNode implements Comparable<TreeNode> {
 	public int compareTo(TreeNode o) {
 
 		return this.f - o.getF();
+	}
+
+	@Override
+	public String toString() {
+		return "TreeNode ID: "+ID+  " state=" + importexport.getMd5(state) + ", cost=" + cost + ", action=" + action + ", depth="
+				+ depth + ", f=" + f + "]";
+	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 }

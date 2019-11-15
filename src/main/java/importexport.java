@@ -88,10 +88,10 @@ public class importexport {
 
 	}
 
-	public static void write_json(String string) throws IOException {
+	public static void write(String string) throws IOException {
 		// Method that concatenates cubes to a json file
 		FileWriter file = new FileWriter(
-				"C:\\Users\\David\\Desktop\\Tercero\\INTELIGENTES\\Practicas\\Practica-Sistemas-Inteligentes-master\\CuboPractica\\ejemploout.json",
+				"ejemploout.json",
 				true);
 		try {
 			file.write(string);
