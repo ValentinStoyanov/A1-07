@@ -5,6 +5,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class SearchAlgorithm {
+	
 	// implement visited list with md5 arraylist and f value
 	// the key(teoria) is the md5
 	// we have to consider when checking if the node is not visited or if the node
@@ -29,14 +30,14 @@ public class SearchAlgorithm {
 		visited.add(new VisitedNode(n_inicial.getF(), importexport.getMd5(n_inicial.getState())));
 		boolean solucion = false;
 		TreeNode n_actual = null;
+		int nodes = 0;
 		
-		
+
 		while (!solucion && !front.isEmpty()) {
 			n_actual = front.remove();
-			int aux = n_actual.getID();
-			n_actual.setID(aux+1);
+
+			nodes++;
 			
-			System.out.println(n_actual.toString());
 			visited.add(new VisitedNode(n_actual.getF(), importexport.getMd5(n_actual.getState())));
 
 			if (StateSpace.isGoal(n_actual.getState())) {
@@ -51,6 +52,7 @@ public class SearchAlgorithm {
 				}
 			}
 		}
+		System.out.println("Numero de nodos: "+nodes);
 
 		if (solucion) {
 			Printer.printcube(n_actual.getState());
