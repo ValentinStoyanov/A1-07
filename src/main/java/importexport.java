@@ -91,11 +91,11 @@ public class importexport {
 	public static void write(String string) throws IOException {
 		// Method that concatenates cubes to a json file
 		FileWriter file = new FileWriter(
-				"ejemploout.json",
+				"C:\\Users\\VST\\Desktop\\hola.txt",
 				true);
 		try {
 			file.write(string);
-			System.out.println("\nJSON Object: " + string);
+			//System.out.println("\nJSON Object: " + string);
 
 		} catch (IOException e) {
 			e.printStackTrace();

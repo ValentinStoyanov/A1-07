@@ -19,7 +19,7 @@ public class Main {
 		Cube state = importexport.convertjson();
 		
 		
-		SearchAlgorithm.busqueda(state, "profundidad", 6, 1, true);
+		SearchAlgorithm.busqueda(state, "cost", 6, 1, false);
 		
 		double endTime = System.nanoTime();
 		endTime = endTime - startTime;

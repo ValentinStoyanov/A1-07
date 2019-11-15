@@ -5,7 +5,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class SearchAlgorithm {
-	
+
 	// implement visited list with md5 arraylist and f value
 	// the key(teoria) is the md5
 	// we have to consider when checking if the node is not visited or if the node
@@ -21,23 +21,24 @@ public class SearchAlgorithm {
 	// We need to have 2 version: prunning or optimized code and non prunning code
 	// Global value optimization true or false
 
-	public static boolean busqueda_acotada(Cube Prob, String estrategia, int Prof_max, boolean optimized) {
+	public static boolean busqueda_acotada(Cube Prob, String estrategia, int Prof_max, boolean optimized) throws IOException {
 		ArrayList<VisitedNode> visited = new ArrayList<VisitedNode>();
 		PriorityQueue<TreeNode> front = new PriorityQueue<TreeNode>();
-		TreeNode n_inicial = new TreeNode(0,null, Prob, 0, "", 0, 0);
+		TreeNode n_inicial = new TreeNode(0, null, Prob, 0, "", 0, 0);
 		front.add(n_inicial);
 		// System.out.println(n_inicial.toString());
 		visited.add(new VisitedNode(n_inicial.getF(), importexport.getMd5(n_inicial.getState())));
 		boolean solucion = false;
 		TreeNode n_actual = null;
 		int nodes = 0;
-		
 
 		while (!solucion && !front.isEmpty()) {
 			n_actual = front.remove();
 
 			nodes++;
-			
+
+			importexport.write(n_actual.toString()+"\n");
+
 			visited.add(new VisitedNode(n_actual.getF(), importexport.getMd5(n_actual.getState())));
 
 			if (StateSpace.isGoal(n_actual.getState())) {
@@ -52,7 +53,7 @@ public class SearchAlgorithm {
 				}
 			}
 		}
-		System.out.println("Numero de nodos: "+nodes);
+		System.out.println("Numero de nodos: " + nodes);
 
 		if (solucion) {
 			Printer.printcube(n_actual.getState());
@@ -63,7 +64,7 @@ public class SearchAlgorithm {
 		return solucion;
 	}
 
-	public static boolean busqueda(Cube Prob, String estrategia, int Prof_Max, int Inc_Prof, boolean Optimized) {
+	public static boolean busqueda(Cube Prob, String estrategia, int Prof_Max, int Inc_Prof, boolean Optimized) throws IOException {
 		int Prof_Actual = Inc_Prof;
 		boolean solucion = false;
 		while (!solucion && Prof_Actual <= Prof_Max) {
@@ -91,7 +92,8 @@ public class SearchAlgorithm {
 		}
 
 		for (int i = 0; i < lS.size() && depth <= prof_max; i++) {
-			LN.add(new TreeNode(n_actual.getID(),n_actual, lS.get(i).getState(), cost, lS.get(i).getAccion(), depth, f));
+			LN.add(new TreeNode(n_actual.getID(), n_actual, lS.get(i).getState(), cost, lS.get(i).getAccion(), depth,
+					f));
 		}
 		return LN;
 	}
