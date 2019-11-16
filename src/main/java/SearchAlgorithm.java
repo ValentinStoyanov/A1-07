@@ -6,10 +6,6 @@ import java.util.TreeSet;
 
 public class SearchAlgorithm {
 
-	// implement visited list with md5 arraylist and f value
-	// the key(teoria) is the md5
-	// we have to consider when checking if the node is not visited or if the node
-	// is visited with greater f
 	// Change the value of f and the visited node in the visited list when the node
 	// is visited and the f is greater of the expanded node
 	// condition to revisit f.current < f.visited_list
@@ -35,11 +31,8 @@ public class SearchAlgorithm {
 
 		while (!solucion && !front.isEmpty()) {
 			n_actual = front.remove();
-
+			System.out.println(n_actual.toString());
 			nodes++;
-
-			// importexport.write(n_actual.toString()+"\n");
-			//System.out.println(n_actual.toString());
 
 			visited.add(new VisitedNode(n_actual.getF(), importexport.getMd5(n_actual.getState())));
 
@@ -90,7 +83,7 @@ public class SearchAlgorithm {
 			f = depth;
 		}
 		if (estrategia.equals("profundidad")) {
-			f = -depth;
+			f = (1.0/depth);
 		}
 		if (estrategia.equals("costo")) {
 			f = cost;
@@ -124,7 +117,7 @@ public class SearchAlgorithm {
 
 		entropy = c[0] + c[1] + c[2] + c[3] + c[4] + c[5];
 
-		return entropy;
+		return Math.abs(entropy);
 	}
 
 	public static double number_of_colors(int[][] array) {
@@ -156,7 +149,7 @@ public class SearchAlgorithm {
 				}
 			}
 		}
-		
+
 		for (int x = 0; x < count.length; x++) {
 			if (count[x] > 0) {
 				entropy += (count[x] / (n * n)) * ((Math.log(count[x] / (n * n))) / (Math.log(6)));
@@ -186,7 +179,6 @@ public class SearchAlgorithm {
 				front.add(LN.get(ln));
 			}
 		}
-
 		return front;
 	}
 
