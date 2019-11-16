@@ -1,18 +1,18 @@
 
 public class VisitedNode {
 	
-	int f;
+	double f;
 	String md5;
 	
-	public VisitedNode(int f, String md5) {
+	public VisitedNode(double f, String md5) {
 		this.f = f;
 		this.md5 = md5;
 	}
 	
-	public int getF() {
+	public double getF() {
 		return f;
 	}
-	public void setF(int f) {
+	public void setF(double f) {
 		this.f = f;
 	}
 	public String getMd5() {

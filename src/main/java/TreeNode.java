@@ -8,14 +8,16 @@ public class TreeNode implements Comparable<TreeNode> {
 	private int cost;
 	private String action;
 	private int depth;
-	private int f;
+	private double f;
+	private double h;
 
 	public TreeNode() {
 
 	}
 
-	public TreeNode(int ID,TreeNode parent, Cube state, int cost, String action, int depth, int f) {
+	public TreeNode(int ID,TreeNode parent, Cube state, int cost, String action, int depth, double f, double h) {
 		super();
+		this.h = h;
 		this.ID = ID;
 		this.parent = parent;
 		this.state = state;
@@ -75,24 +77,24 @@ public class TreeNode implements Comparable<TreeNode> {
 		this.depth = depth;
 	}
 
-	public int getF() {
+	public double getF() {
 		return f;
 	}
 
-	public void setF(int f) {
+	public void setF(double f) {
 		this.f = f;
 	}
 
 	@Override
 	public int compareTo(TreeNode o) {
 
-		return this.f - o.getF();
+		return (int) ((Math.abs(this.f) - Math.abs(o.getF())))*100;
 	}
 
 	@Override
 	public String toString() {
 		return "TreeNode ID: "+ID+  " state=" + importexport.getMd5(state) + ", cost=" + cost + ", action=" + action + ", depth="
-				+ depth + ", f=" + f + "]";
+				+ depth + ", f=" + f +" h: "+h+ "]";
 	}
 
 	public int getID() {
@@ -103,6 +105,14 @@ public class TreeNode implements Comparable<TreeNode> {
 		ID = iD;
 	}
 
+	public double getH() {
+		return h;
+	}
+
+	public void setH(double h) {
+		this.h = h;
+	}
+
 }
 
 class Sortbyroll implements Comparator<TreeNode> {
@@ -110,6 +120,6 @@ class Sortbyroll implements Comparator<TreeNode> {
 	@Override
 	public int compare(TreeNode o1, TreeNode o2) {
 		// TODO Auto-generated method stub
-		return o1.getF() - o2.getF();
+		return (int) ((Math.abs(o1.getF()) - Math.abs(o2.getF())))*100;
 	}
 }

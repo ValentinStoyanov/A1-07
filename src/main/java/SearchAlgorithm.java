@@ -21,10 +21,11 @@ public class SearchAlgorithm {
 	// We need to have 2 version: prunning or optimized code and non prunning code
 	// Global value optimization true or false
 
-	public static boolean busqueda_acotada(Cube Prob, String estrategia, int Prof_max, boolean optimized) throws IOException {
+	public static boolean busqueda_acotada(Cube Prob, String estrategia, int Prof_max, boolean optimized)
+			throws IOException {
 		ArrayList<VisitedNode> visited = new ArrayList<VisitedNode>();
 		PriorityQueue<TreeNode> front = new PriorityQueue<TreeNode>();
-		TreeNode n_inicial = new TreeNode(0, null, Prob, 0, "", 0, 0);
+		TreeNode n_inicial = new TreeNode(0, null, Prob, 0, "", 0, 0, 0);
 		front.add(n_inicial);
 		// System.out.println(n_inicial.toString());
 		visited.add(new VisitedNode(n_inicial.getF(), importexport.getMd5(n_inicial.getState())));
@@ -37,8 +38,8 @@ public class SearchAlgorithm {
 
 			nodes++;
 
-			//importexport.write(n_actual.toString()+"\n");
-			System.out.println(n_actual.toString());
+			// importexport.write(n_actual.toString()+"\n");
+			//System.out.println(n_actual.toString());
 
 			visited.add(new VisitedNode(n_actual.getF(), importexport.getMd5(n_actual.getState())));
 
@@ -65,7 +66,8 @@ public class SearchAlgorithm {
 		return solucion;
 	}
 
-	public static boolean busqueda(Cube Prob, String estrategia, int Prof_Max, int Inc_Prof, boolean Optimized) throws IOException {
+	public static boolean busqueda(Cube Prob, String estrategia, int Prof_Max, int Inc_Prof, boolean Optimized)
+			throws IOException {
 		int Prof_Actual = Inc_Prof;
 		boolean solucion = false;
 		while (!solucion && Prof_Actual <= Prof_Max) {
@@ -81,7 +83,9 @@ public class SearchAlgorithm {
 		ArrayList<TreeNode> LN = new ArrayList<TreeNode>();
 		int cost = n_actual.getCost() + 1;
 		int depth = n_actual.getDepth() + 1;
-		int f = 0;
+		double f = 0;
+		double h = n_actual.getH();
+
 		if (estrategia.equals("anchura")) {
 			f = depth;
 		}
@@ -93,10 +97,73 @@ public class SearchAlgorithm {
 		}
 
 		for (int i = 0; i < lS.size() && depth <= prof_max; i++) {
-			LN.add(new TreeNode(n_actual.getID(), n_actual, lS.get(i).getState(), cost, lS.get(i).getAccion(), depth,
-					f));
+			h = calculate_h(lS.get(i).getState());
+
+			if (estrategia.equals("greedy")) {
+				f = h;
+			}
+			if (estrategia.equals("A")) {
+				f = h + cost;
+			}
+
+			LN.add(new TreeNode(n_actual.getID(), n_actual, lS.get(i).getState(), cost, lS.get(i).getAccion(), depth, f,
+					h));
 		}
 		return LN;
+	}
+
+	public static double calculate_h(Cube cube) {
+		double entropy = 0;
+		double[] c = new double[6];
+		c[0] = number_of_colors(cube.getBack());
+		c[1] = number_of_colors(cube.getDown());
+		c[2] = number_of_colors(cube.getFront());
+		c[3] = number_of_colors(cube.getLeft());
+		c[4] = number_of_colors(cube.getRight());
+		c[5] = number_of_colors(cube.getUp());
+
+		entropy = c[0] + c[1] + c[2] + c[3] + c[4] + c[5];
+
+		return entropy;
+	}
+
+	public static double number_of_colors(int[][] array) {
+		int n = array.length;
+		double entropy = 0;
+		double[] count = { 0, 0, 0, 0, 0, 0 };
+		int c = 0;
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 0; j < array.length; j++) {
+				switch (array[i][j]) {
+				case 0:
+					count[0] += 1;
+					break;
+				case 1:
+					count[1] += 1;
+					break;
+				case 2:
+					count[2] += 1;
+					break;
+				case 3:
+					count[3] += 1;
+					break;
+				case 4:
+					count[4] += 1;
+					break;
+				case 5:
+					count[5] += 1;
+					break;
+				}
+			}
+		}
+		
+		for (int x = 0; x < count.length; x++) {
+			if (count[x] > 0) {
+				entropy += (count[x] / (n * n)) * ((Math.log(count[x] / (n * n))) / (Math.log(6)));
+			}
+		}
+
+		return entropy;
 	}
 
 	public static PriorityQueue<TreeNode> addnodestofrontier(PriorityQueue<TreeNode> front, ArrayList<TreeNode> LN) {
