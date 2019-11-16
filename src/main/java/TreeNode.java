@@ -88,7 +88,7 @@ public class TreeNode implements Comparable<TreeNode> {
 	@Override
 	public int compareTo(TreeNode o) {
 
-		return (int) ( this.f - o.getF());
+		return (int) (( this.f - o.getF())*1000);
 	}
 
 	@Override
@@ -120,6 +120,6 @@ class Sortbyroll implements Comparator<TreeNode> {
 	@Override
 	public int compare(TreeNode o1, TreeNode o2) {
 		// TODO Auto-generated method stub
-		return (int) (o1.getF() - o2.getF());
+		return (int) ((o1.getF() - o2.getF())*1000);
 	}
 }

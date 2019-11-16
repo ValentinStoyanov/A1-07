@@ -31,7 +31,7 @@ public class SearchAlgorithm {
 
 		while (!solucion && !front.isEmpty()) {
 			n_actual = front.remove();
-			System.out.println(n_actual.toString());
+			//System.out.println(n_actual.toString());
 			nodes++;
 
 			visited.add(new VisitedNode(n_actual.getF(), importexport.getMd5(n_actual.getState())));

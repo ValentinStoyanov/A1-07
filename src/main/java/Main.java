@@ -20,7 +20,7 @@ public class Main {
 		
 		
 		
-		SearchAlgorithm.busqueda(state, "profundidad", 7, 1, false);
+		SearchAlgorithm.busqueda(state, "costo", 6, 1, false);
 		
 		double endTime = System.nanoTime();
 		endTime = endTime - startTime;
