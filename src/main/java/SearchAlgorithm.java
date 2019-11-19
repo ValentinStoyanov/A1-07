@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -11,9 +13,11 @@ public class SearchAlgorithm {
 
 		PriorityQueue<TreeNode> front = new PriorityQueue<TreeNode>();
 		ArrayList<String> v_list = new ArrayList<String>();
+		
+		Map<Integer, String> visited = new HashMap<>();
+
 		TreeNode n_inicial = new TreeNode(Prob, estrategia);
 		front.add(n_inicial);
-		System.out.println(n_inicial.toString());
 		boolean solucion = false;
 		TreeNode n_actual = null;
 		int node = 0;
@@ -29,7 +33,7 @@ public class SearchAlgorithm {
 			}
 			
 			System.out.println("NODE: "+node);
-			System.out.println(n_actual.toString());
+			//System.out.println(n_actual.toString());
 			v_list.add(importexport.getMd5(n_actual.getState()));
 			
 			//System.out.println(n_actual.toString());
