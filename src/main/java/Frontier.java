@@ -44,7 +44,7 @@ public class Frontier {
 		for (int i = 0; i < 10000000; i++) {
 
 			int indicemov = (int) (Math.random() * cube.getBack().length*6);
-			TreeNode a = new TreeNode();
+			TreeNode a = new TreeNode(cube,"");
 			a.setState(Movements.do_movement(cube,moves[indicemov]));
 			a.setF((int)Math.random()*10000);
 			x.add(a);
@@ -70,7 +70,7 @@ public class Frontier {
 		for (int i = 0; i < 10000000; i++) {
 
 			int indicemov = (int) (Math.random() * cube.getBack().length*6);
-			TreeNode a = new TreeNode();
+			TreeNode a = new TreeNode(cube,"");
 			a.setState(Movements.do_movement(cube,moves[indicemov]));
 			a.setF((int)Math.random()*10000);
 			x.add(a);

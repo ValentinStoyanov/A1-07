@@ -9,32 +9,108 @@ public class TreeNode implements Comparable<TreeNode> {
 	private String action;
 	private int depth;
 	private double f;
-	private double h;
+	double h;
+	String estrategia;
 
-	public TreeNode() {
 
-	}
 
-	public TreeNode(int ID,TreeNode parent, Cube state, int cost, String action, int depth, double f, double h) {
+	public TreeNode(TreeNode parent, Cube state, String action,String estrategia) {
 		super();
-		this.h = h;
-		this.ID = ID;
 		this.parent = parent;
 		this.state = state;
-		this.cost = cost;
 		this.action = action;
-		this.depth = depth;
-		this.f = f;
+		this.cost = parent.getCost()+1;
+		this.depth = parent.getDepth()+1;
+		this.h = calculate_h(state);
+		this.f = calculate_f(estrategia);
 	}
 
-	public TreeNode(Cube state) {
+	public TreeNode(Cube state,String estrategia) {
+		this.ID = 0;
 		this.state = state;
 		this.parent = null;
 		this.cost = 0;
 		this.action = "";
 		this.depth = 0;
+		this.h = calculate_h(state);
 		this.f = 0;
+	}
+	
+	public double calculate_f(String estrategia) {
+		double f_value = 0;
+		
+		switch(estrategia) {
+		case "costo":
+			f_value = cost;
+			break;
+		case "profundidad":
+			f_value = 1.0/depth;
+			break;
+		case "anchura":
+			f_value = depth;
+			break;
+		case "greedy":
+			f_value = h;
+			break;
+		case "A":
+			f_value = h+cost;
+			break;
+		}
+		return f_value;
+	}
+	
+	public static double calculate_h(Cube cube) {
+		double entropy = 0;
+		double[] c = new double[6];
+		c[0] = number_of_colors(cube.getBack());
+		c[1] = number_of_colors(cube.getDown());
+		c[2] = number_of_colors(cube.getFront());
+		c[3] = number_of_colors(cube.getLeft());
+		c[4] = number_of_colors(cube.getRight());
+		c[5] = number_of_colors(cube.getUp());
 
+		entropy = c[0] + c[1] + c[2] + c[3] + c[4] + c[5];
+
+		return Math.abs(entropy);
+	}
+
+	public static double number_of_colors(int[][] array) {
+		int n = array.length;
+		double entropy = 0;
+		double[] count = { 0, 0, 0, 0, 0, 0 };
+		int c = 0;
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 0; j < array.length; j++) {
+				switch (array[i][j]) {
+				case 0:
+					count[0] += 1;
+					break;
+				case 1:
+					count[1] += 1;
+					break;
+				case 2:
+					count[2] += 1;
+					break;
+				case 3:
+					count[3] += 1;
+					break;
+				case 4:
+					count[4] += 1;
+					break;
+				case 5:
+					count[5] += 1;
+					break;
+				}
+			}
+		}
+
+		for (int x = 0; x < count.length; x++) {
+			if (count[x] > 0) {
+				entropy += (count[x] / (n * n)) * ((Math.log(count[x] / (n * n))) / (Math.log(6)));
+			}
+		}
+
+		return entropy;
 	}
 
 	public TreeNode getParent() {
