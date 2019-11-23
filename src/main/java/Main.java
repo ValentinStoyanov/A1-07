@@ -2,8 +2,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -18,12 +20,11 @@ public class Main {
 
 		Cube state = importexport.convertjson();
 		
-		SearchAlgorithm.busqueda_acotada(state, "anchura", 6, true);
+		SearchAlgorithm.busqueda_acotada(state, "greedy", 6, true);
 		
 		double endTime = System.nanoTime();
 		endTime = endTime - startTime;
 
 		System.out.println("Elapsed time in seconds: " + endTime/1000000000);
-		
 	}
 }

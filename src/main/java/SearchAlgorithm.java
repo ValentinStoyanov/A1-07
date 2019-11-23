@@ -6,15 +6,17 @@ import java.util.PriorityQueue;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
 public class SearchAlgorithm {
 
 	public static boolean busqueda_acotada(Cube Prob, String estrategia, int Prof_max, boolean optimized)
 			throws IOException {
 
 		PriorityQueue<TreeNode> front = new PriorityQueue<TreeNode>();
-		ArrayList<String> v_list = new ArrayList<String>();
 		
-		Map<Integer, String> visited = new HashMap<>();
+		Map<String, Double> visited = new HashMap<>();
 
 		TreeNode n_inicial = new TreeNode(Prob, estrategia);
 		front.add(n_inicial);
@@ -25,18 +27,23 @@ public class SearchAlgorithm {
 		while (!solucion && !front.isEmpty()) {
 			
 			n_actual = front.remove();
-			node++;
 			
-			while(v_list.contains(importexport.getMd5(n_actual.getState())) && !front.isEmpty() && optimized) {	
-				n_actual = front.remove();
-				node++;
+			while(visited.containsKey(importexport.getMd5(n_actual.getState())) && !front.isEmpty() && optimized) {	
+				String aux = importexport.getMd5(n_actual.getState());
+				double auxvalue = visited.get(aux);		
+				if(auxvalue > n_actual.getF()) {
+					visited.put(importexport.getMd5(n_actual.getState()), n_actual.getF());
+				}else {
+					n_actual = front.remove();	
+				}
 			}
 			
-			System.out.println("NODE: "+node);
-			//System.out.println(n_actual.toString());
-			v_list.add(importexport.getMd5(n_actual.getState()));
 			
-			//System.out.println(n_actual.toString());
+			visited.put(importexport.getMd5(n_actual.getState()), n_actual.getF());
+			System.out.println(n_actual.toString());
+
+			
+			
 			if (StateSpace.isGoal(n_actual.getState())) {
 				solucion = true;
 			} else {
