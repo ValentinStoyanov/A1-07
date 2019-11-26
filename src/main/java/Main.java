@@ -20,7 +20,7 @@ public class Main {
 
 		Cube state = importexport.convertjson();
 		
-		SearchAlgorithm.busqueda_acotada(state, "greedy", 6, true);
+		SearchAlgorithm.busqueda_acotada(state, "greedy", 5, true);
 		
 		double endTime = System.nanoTime();
 		endTime = endTime - startTime;
