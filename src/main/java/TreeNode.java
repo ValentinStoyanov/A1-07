@@ -36,6 +36,11 @@ public class TreeNode implements Comparable<TreeNode> {
 		this.f = 0;
 	}
 	
+	public String get_md5 () {
+		String md5 = importexport.getMd5(state);
+		return md5;
+	}
+	
 	public double calculate_f(String estrategia) {
 		double f_value = 0;
 		

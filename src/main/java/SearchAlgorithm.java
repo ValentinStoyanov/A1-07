@@ -25,29 +25,24 @@ public class SearchAlgorithm {
 		while (!solucion && !front.isEmpty()) {
 
 			n_actual = front.remove();
-			visited.put(importexport.getMd5(n_actual.getState()), Math.abs(n_actual.getF()));
-			System.out.println(visited);
-
+			
 			if (StateSpace.isGoal(n_actual.getState())) {
 				solucion = true;
 			} else {
 				ArrayList<Successor> LS = StateSpace.Succesors(n_actual.getState(), n_actual.getCost());
-				ArrayList<TreeNode> LN = CrearListaNodosArbol(LS, n_actual, Prof_max, estrategia);
-				if (!LN.isEmpty()) {
+				ArrayList<TreeNode> LN = new ArrayList<TreeNode>(); 
+				LN = CrearListaNodosArbol(LS, n_actual, Prof_max, estrategia);
+				
+				if (LN != null) {
 					for (TreeNode ni : LN) {
-						if (!visited.containsKey(ni)) {
-							visited.put(importexport.getMd5(ni.getState()), Math.abs(n_actual.getF()));
+						if (!visited.containsKey(ni.get_md5())) {
+							visited.put(ni.get_md5(),Math.abs(n_actual.getF()));
 							front.add(ni);
 						} else {
-							if ((double) visited.get(importexport.getMd5(ni.getState())) > Math.abs(ni.getF())) {
-								visited.replace(importexport.getMd5(ni.getState()), Math.abs(n_actual.getF()));
-								front.add(ni);
-							}
+							
 						}
 					}
 				}
-
-				front = addnodestofrontier(front, LN);
 			}
 		}
 

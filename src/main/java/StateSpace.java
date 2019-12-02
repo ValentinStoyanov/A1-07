@@ -7,8 +7,10 @@ public class StateSpace {
 		String[] movements = Movements.Movements_list(state);
 		Cube[] cubearray = new Cube[movements.length];
 		for (int i = 0; i < movements.length; i++) {
+			
 			Cube aux = new Cube(clonearray(state.getBack()), clonearray(state.getDown()), clonearray(state.getFront()),
 					clonearray(state.getLeft()), clonearray(state.getRight()), clonearray(state.getUp()));
+			
 			cubearray[i] = Movements.do_movement(aux, movements[i]);
 			Successor s = new Successor(movements[i], aux, 1);
 			successors.add(s);
