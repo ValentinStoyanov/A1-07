@@ -25,24 +25,33 @@ public class SearchAlgorithm {
 		while (!solucion && !front.isEmpty()) {
 
 			n_actual = front.remove();
-			
+			System.out.println(n_actual.toString());
 			if (StateSpace.isGoal(n_actual.getState())) {
 				solucion = true;
 			} else {
 				ArrayList<Successor> LS = StateSpace.Succesors(n_actual.getState(), n_actual.getCost());
-				ArrayList<TreeNode> LN = new ArrayList<TreeNode>(); 
-				LN = CrearListaNodosArbol(LS, n_actual, Prof_max, estrategia);
-				
+				ArrayList<TreeNode> LN = CrearListaNodosArbol(LS, n_actual, Prof_max, estrategia);
+
 				if (LN != null) {
-					for (TreeNode ni : LN) {
-						if (!visited.containsKey(ni.get_md5())) {
-							visited.put(ni.get_md5(),Math.abs(n_actual.getF()));
-							front.add(ni);
-						} else {
-							
+					if (!LN.isEmpty()) {
+						for (TreeNode ni : LN) {
+							String md5 = ni.get_md5();
+							double f_value = ni.getF();
+							if (!visited.containsKey(md5)) {
+								visited.put(md5, Math.abs(f_value));
+								front.add(ni);
+							} else {
+								double f_visited = visited.get(md5);
+								if (f_visited > f_value) {
+									front.add(ni);
+									visited.put(md5, Math.abs(f_value));
+
+								}
+							}
 						}
 					}
 				}
+				
 			}
 		}
 
@@ -82,17 +91,6 @@ public class SearchAlgorithm {
 			LN = null;
 		}
 		return LN;
-	}
-
-	public static PriorityQueue<TreeNode> addnodestofrontier(PriorityQueue<TreeNode> front, ArrayList<TreeNode> LN) {
-
-		if (!(LN == null)) {
-			for (int i = 0; i < LN.size(); i++) {
-				front.add(LN.get(i));
-			}
-		}
-
-		return front;
 	}
 
 }
