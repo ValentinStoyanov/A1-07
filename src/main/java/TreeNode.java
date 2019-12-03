@@ -12,20 +12,18 @@ public class TreeNode implements Comparable<TreeNode> {
 	double h;
 	String estrategia;
 
-
-
-	public TreeNode(TreeNode parent, Cube state, String action,String estrategia) {
+	public TreeNode(TreeNode parent, Cube state, String action, String estrategia) {
 		super();
 		this.parent = parent;
 		this.state = state;
 		this.action = action;
-		this.cost = parent.getCost()+1;
-		this.depth = parent.getDepth()+1;
+		this.cost = parent.getCost() + 1;
+		this.depth = parent.getDepth() + 1;
 		this.h = calculate_h(state);
 		this.f = calculate_f(estrategia);
 	}
 
-	public TreeNode(Cube state,String estrategia) {
+	public TreeNode(Cube state, String estrategia) {
 		this.ID = 0;
 		this.state = state;
 		this.parent = null;
@@ -35,21 +33,21 @@ public class TreeNode implements Comparable<TreeNode> {
 		this.h = calculate_h(state);
 		this.f = 0;
 	}
-	
-	public String get_md5 () {
+
+	public String get_md5() {
 		String md5 = importexport.getMd5(state);
 		return md5;
 	}
-	
+
 	public double calculate_f(String estrategia) {
 		double f_value = 0;
-		
-		switch(estrategia) {
+
+		switch (estrategia) {
 		case "costo":
 			f_value = cost;
 			break;
 		case "profundidad":
-			f_value = 1.0/(depth+1.0);
+			f_value = 1.0 / (depth + 1.0);
 			break;
 		case "anchura":
 			f_value = depth;
@@ -58,12 +56,12 @@ public class TreeNode implements Comparable<TreeNode> {
 			f_value = h;
 			break;
 		case "A":
-			f_value = h+cost;
+			f_value = h + cost;
 			break;
 		}
 		return f_value;
 	}
-	
+
 	public static double calculate_h(Cube cube) {
 		double entropy = 0;
 		double[] c = new double[6];
@@ -83,7 +81,6 @@ public class TreeNode implements Comparable<TreeNode> {
 		int n = array.length;
 		double entropy = 0;
 		double[] count = { 0, 0, 0, 0, 0, 0 };
-		int c = 0;
 		for (int i = 0; i < array.length; i++) {
 			for (int j = 0; j < array.length; j++) {
 				switch (array[i][j]) {
@@ -169,13 +166,13 @@ public class TreeNode implements Comparable<TreeNode> {
 	@Override
 	public int compareTo(TreeNode o) {
 
-		return (int) (( this.f - o.getF())*1000);
+		return (int) ((this.f - o.getF()) * 1000);
 	}
 
 	@Override
 	public String toString() {
-		return "TreeNode ID: "+ID+  " state=" + importexport.getMd5(state) + ", cost=" + cost + ", action=" + action + ", depth="
-				+ depth + ", f=" + f +" h: "+h+ "]";
+		return "TreeNode ID: " + ID + " state=" + importexport.getMd5(state) + ", cost=" + cost + ", action=" + action
+				+ ", depth=" + depth + ", f=" + f + " h: " + h + "]";
 	}
 
 	public int getID() {
@@ -201,6 +198,6 @@ class Sortbyroll implements Comparator<TreeNode> {
 	@Override
 	public int compare(TreeNode o1, TreeNode o2) {
 		// TODO Auto-generated method stub
-		return (int) ((o1.getF() - o2.getF())*1000);
+		return (int) ((o1.getF() - o2.getF()) * 1000);
 	}
 }
