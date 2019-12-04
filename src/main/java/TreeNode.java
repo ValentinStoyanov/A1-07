@@ -162,19 +162,7 @@ public class TreeNode implements Comparable<TreeNode> {
 	public void setF(double f) {
 		this.f = f;
 	}
-
-	@Override
-	public int compareTo(TreeNode o) {
-
-		return (int) ((this.f - o.getF()) * 1000);
-	}
-
-	@Override
-	public String toString() {
-		return "TreeNode ID: " + ID + " state=" + importexport.getMd5(state) + ", cost=" + cost + ", action=" + action
-				+ ", depth=" + depth + ", f=" + f + " h: " + h + "]";
-	}
-
+	
 	public int getID() {
 		return ID;
 	}
@@ -191,13 +179,23 @@ public class TreeNode implements Comparable<TreeNode> {
 		this.h = h;
 	}
 
-}
+	@Override
+	public int compareTo(TreeNode o) {
 
-class Sortbyroll implements Comparator<TreeNode> {
+		double a = this.f;
+		double b = o.getF();
+		
+		if (a<b) return -1;
+		if (a>b) return 1;
+		return 0;
+			
+		
+	}
 
 	@Override
-	public int compare(TreeNode o1, TreeNode o2) {
-		// TODO Auto-generated method stub
-		return (int) ((o1.getF() - o2.getF()) * 1000);
+	public String toString() {
+		return "TreeNode ID: " + ID + " state=" + importexport.getMd5(state) + ", cost=" + cost + ", action=" + action
+				+ ", depth=" + depth + ", f=" + f + " h: " + h + "]";
 	}
+
 }

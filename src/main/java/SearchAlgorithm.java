@@ -18,7 +18,6 @@ public class SearchAlgorithm {
 		TreeNode n_actual = null;
 
 		while (!solucion && !front.isEmpty()) {
-
 			n_actual = front.remove();
 			System.out.println(n_actual.toString());
 			if (StateSpace.isGoal(n_actual.getState())) {

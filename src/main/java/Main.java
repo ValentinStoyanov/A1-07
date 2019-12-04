@@ -8,7 +8,7 @@ public class Main {
 
 		Cube state = importexport.convertjson();
 		
-		SearchAlgorithm.busqueda_acotada(state, "profundidad", 6, true);
+		SearchAlgorithm.busqueda_acotada(state, "greedy", 6, true);
 		
 		double endTime = System.nanoTime();
 		endTime = endTime - startTime;
@@ -16,13 +16,6 @@ public class Main {
 		System.out.println("Elapsed time in seconds: " + endTime/1000000000);
 	
 		
-//	
-//	Printer.printcube(state);
-//	state = Movements.do_movement(state, "L0");
-//	System.out.println("-----------------------------------------");
-//	Printer.printcube(state);
-//	
-//	
 	
 	}
 }
