@@ -106,8 +106,8 @@ public class importexport {
 
 	}
 
-	public static Cube convertjson() {
-		JSONObject obj = (JSONObject) readjson();
+	public static Cube convertjson(String file) {
+		JSONObject obj = (JSONObject) readjson(file);
 		JSONArray down = (JSONArray) obj.get("DOWN");
 		JSONArray left = (JSONArray) obj.get("LEFT");
 		JSONArray back = (JSONArray) obj.get("BACK");
@@ -155,14 +155,14 @@ public class importexport {
 
 	}
 
-	public static Object readjson() {
+	public static Object readjson(String file) {
 		// Method that reads a json file
 
 		// Parser
 		JSONParser jsonParser = new JSONParser();
 		Object obj = null;
 
-		try (FileReader reader = new FileReader("ejemplo.json")) { // Name of the json file with the cube
+		try (FileReader reader = new FileReader(file)) { // Name of the json file with the cube
 			// Read JSON file
 			obj = jsonParser.parse(reader);
 

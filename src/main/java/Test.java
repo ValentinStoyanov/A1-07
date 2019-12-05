@@ -9,7 +9,7 @@ public class Test {
 	public static void tenrowtest () {
 
 		//System.out.println("<<<<<<<<<<<<<<<<<<BEFORE MOVEMENT>>>>>>>>>>>>>>>>>>");
-		Cube cube =  importexport.convertjson();
+		Cube cube =  importexport.convertjson("ejemplo.out");
 		//Printer.printcube(cube);
 		//System.out.println("<<<<<<<<<<<<<<<<<<AFTER MOVEMENT>>>>>>>>>>>>>>>>>>");
 		//Printer.printcube(cube);

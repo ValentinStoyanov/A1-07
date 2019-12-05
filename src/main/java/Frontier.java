@@ -35,7 +35,7 @@ public class Frontier {
 
 	public static long testlinkedlist() {
 
-		Cube cube = importexport.convertjson();
+		Cube cube = importexport.convertjson("ejemplo.out");
 		LinkedList<TreeNode> x = new LinkedList<TreeNode>();
 		String[] moves = Movements.Movements_list(cube);
 
@@ -61,7 +61,7 @@ public class Frontier {
 
 	public static long testpriorityqueue() {
 
-		Cube cube = importexport.convertjson();
+		Cube cube = importexport.convertjson("ejemoplo.out");
 		PriorityQueue<TreeNode> x =  new PriorityQueue<TreeNode>(); 
 		String[] moves = Movements.Movements_list(cube);
 

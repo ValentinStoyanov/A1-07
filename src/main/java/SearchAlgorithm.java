@@ -19,7 +19,6 @@ public class SearchAlgorithm {
 
 		while (!solucion && !front.isEmpty()) {
 			n_actual = front.remove();
-			System.out.println(n_actual.toString());
 			if (StateSpace.isGoal(n_actual.getState())) {
 				solucion = true;
 			} else {
