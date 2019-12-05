@@ -91,8 +91,9 @@ public class importexport {
 	public static void write(String string) throws IOException {
 		// Method that concatenates cubes to a json file
 		FileWriter file = new FileWriter(
-				"C:\\Users\\VST\\Desktop\\hola.txt",
+				"nodes.txt",
 				true);
+		
 		try {
 			file.write(string);
 			//System.out.println("\nJSON Object: " + string);
