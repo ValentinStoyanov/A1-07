@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
 	public static void main(String[] args) throws IOException {
 
-		/*Scanner reader = new Scanner(System.in);
+		Scanner reader = new Scanner(System.in);
 		boolean exists = false;
 		System.out.println("Type the name or path of the json file containing the cube");
 		String file = reader.next();
@@ -22,7 +22,6 @@ public class Main {
 		Cube state = importexport.convertjson(file);
 		boolean opt_print = false;
 		boolean opt_file = false;
-		boolean cont = true;
 		String strategy = "";
 		int depth = 0;
 		boolean prunning = false;
@@ -114,10 +113,9 @@ public class Main {
 			opt_print = true;
 		}
 
-		reader.close();*/ 
+		reader.close();
 		System.out.println("\n\n\n\n" + "Executing code" + "\n\n\n");
-		Cube state = importexport.convertjson("ejemplo.json");
-		SearchAlgorithm.busqueda_acotada(state, "A",6, true,true,false);
+		SearchAlgorithm.busqueda_acotada(state, strategy,depth, prunning,opt_print,opt_file);
 
 	}
 }

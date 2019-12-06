@@ -162,7 +162,7 @@ public class TreeNode implements Comparable<TreeNode> {
 	public void setF(double f) {
 		this.f = f;
 	}
-	
+
 	public int getID() {
 		return ID;
 	}
@@ -184,12 +184,32 @@ public class TreeNode implements Comparable<TreeNode> {
 
 		double a = this.f;
 		double b = o.getF();
+		int id_a = this.ID;
+		int id_b = o.getID();
+
+		if (a < b) {
+			return -1;
+		}else {
+			if (id_a > id_b) {
+				return -1;
+			} else if (id_a < id_b) {
+				return 1;
+			}
+		} 
 		
-		if (a<b) return -1;
-		if (a>b) return 1;
+		
+		if (a > b) {
+			return 1;
+		} else {
+			if (id_a < id_b) {
+				return -1;
+			} else if (id_a > id_b) {
+				return 1;
+			}
+		}
+		
 		return 0;
-			
-		
+
 	}
 
 	@Override

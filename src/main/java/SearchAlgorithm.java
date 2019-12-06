@@ -19,10 +19,8 @@ public class SearchAlgorithm {
 		while (!solucion && !front.isEmpty()) {
 			
 			n_actual = front.remove();
-			
 			node_id++;
 			n_actual.setID(node_id);
-			
 			if (print_stdout) {
 				System.out.println(n_actual.toString());
 			}
@@ -53,9 +51,7 @@ public class SearchAlgorithm {
 										front.add(ni);
 										visited.put(md5, Math.abs(f_value));
 										node_id++;
-
 									}
-									
 								}
 							}
 						}
