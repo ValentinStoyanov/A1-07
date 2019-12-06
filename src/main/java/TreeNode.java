@@ -47,7 +47,7 @@ public class TreeNode implements Comparable<TreeNode> {
 			f_value = cost;
 			break;
 		case "profundidad":
-			f_value = 1.0 / (depth + 1.0);
+			f_value = -depth;
 			break;
 		case "anchura":
 			f_value = depth;
