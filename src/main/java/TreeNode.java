@@ -1,4 +1,3 @@
-import java.util.Comparator;
 
 public class TreeNode implements Comparable<TreeNode> {
 
@@ -180,35 +179,19 @@ public class TreeNode implements Comparable<TreeNode> {
 	}
 
 	@Override
-	public int compareTo(TreeNode o) {
-
-		double a = this.f;
-		double b = o.getF();
-		int id_a = this.ID;
-		int id_b = o.getID();
-
-		if (a < b) {
-			return -1;
-		}else {
-			if (id_a > id_b) {
-				return -1;
-			} else if (id_a < id_b) {
-				return 1;
-			}
-		} 
+	public int compareTo(TreeNode node) {
 		
-		
-		if (a > b) {
+		if (node.getF() < this.f) {
 			return 1;
-		} else {
-			if (id_a < id_b) {
+		}else {
+			if(node.getF() > this.f) {
 				return -1;
-			} else if (id_a > id_b) {
+			}else if(node.getF() > this.f){
+				return 1;
+			}else {
 				return 1;
 			}
 		}
-		
-		return 0;
 
 	}
 

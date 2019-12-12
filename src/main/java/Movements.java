@@ -11,6 +11,7 @@ public class Movements {
 			a[j+cube.getBack().length*4] = "L"+j;
 			a[j+cube.getBack().length*5] = "l"+j;
 		}
+		
 		return a;
 	}
 	
@@ -20,6 +21,7 @@ public class Movements {
 		//System.out.println("Doing movement: "+move);
 		String movement_tipe = move.substring(0, 1);
 		int number = Integer.parseInt(move.substring(1));
+		
 
 		switch (movement_tipe) {
 		case "L":

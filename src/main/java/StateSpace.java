@@ -14,8 +14,8 @@ public class StateSpace {
 			cubearray[i] = Movements.do_movement(aux, movements[i]);
 			Successor s = new Successor(movements[i], aux, 1);
 			successors.add(s);
-			// Printer.printcube(cubearray[i]);
 		}
+		
 		return successors;
 
 	}
