@@ -181,15 +181,15 @@ public class TreeNode implements Comparable<TreeNode> {
 	@Override
 	public int compareTo(TreeNode node) {
 		
-		if (node.getF() < this.f) {
+		if (node.getF() < this.getF()) {
 			return 1;
 		}else {
-			if(node.getF() > this.f) {
+			if(node.getF() > this.getF()) {
 				return -1;
-			}else if(node.getF() > this.f){
+			}else if(node.getID() < this.getID()){
 				return 1;
 			}else {
-				return 1;
+				return -1;
 			}
 		}
 

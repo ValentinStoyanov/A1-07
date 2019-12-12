@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 public class SearchAlgorithm {
 
 	public static boolean busqueda_acotada(Cube Prob, String estrategia, int Prof_max, boolean optimized,
-			boolean print_stdout, boolean print_file) throws IOException, InterruptedException {
+			boolean print_stdout, boolean print_file) throws IOException {
 
 		PriorityQueue<TreeNode> front = new PriorityQueue<TreeNode>();
 		Hashtable<String, Double> visited = new Hashtable<>();
@@ -88,7 +88,7 @@ public class SearchAlgorithm {
 	}
 
 	public static boolean busqueda(Cube Prob, String estrategia, int Prof_Max, int Inc_Prof, boolean Optimized,
-			boolean print_stdout, boolean print_file) throws IOException, InterruptedException {
+			boolean print_stdout, boolean print_file) throws IOException {
 		int Prof_Actual = Inc_Prof;
 		boolean solucion = false;
 		while (!solucion && Prof_Actual <= Prof_Max) {
@@ -102,9 +102,11 @@ public class SearchAlgorithm {
 			String estrategia) {
 
 		ArrayList<TreeNode> LN = new ArrayList<TreeNode>();
-
+		
 			for (int i = 0; i < lS.size(); i++) {
+				if(!lS.get(i).getAccion().equals("b1")) {
 				LN.add(new TreeNode(n_actual, lS.get(i).getState(), lS.get(i).getAccion(), estrategia));
+				}
 			}
 		return LN;
 	}
