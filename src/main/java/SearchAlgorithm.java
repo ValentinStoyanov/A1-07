@@ -17,9 +17,20 @@ public class SearchAlgorithm {
 		int node = 0;
 
 		while (!solucion && !front.isEmpty()) {
+			
+			
 			n_actual = front.remove();
 			String md5 = n_actual.get_md5();
 
+			if(print_stdout) {
+				System.out.println(n_actual);
+			}
+			
+			if(print_file) {
+				importexport.write(n_actual.toString()+"\n");
+			}
+			
+			
 			if (visited.containsKey(md5) && visited.get(md5) < n_actual.getF()) {
 
 			} else {
@@ -37,13 +48,8 @@ public class SearchAlgorithm {
 								node++;
 								nc.setID(node);
 								front.add(nc);
-
 							}
 					}
-					
-					
-
-
 					// Prunning 2 not working in some cases
 					/*
 					 * if (optimized) {
@@ -104,9 +110,9 @@ public class SearchAlgorithm {
 		ArrayList<TreeNode> LN = new ArrayList<TreeNode>();
 		
 			for (int i = 0; i < lS.size(); i++) {
-				if(!lS.get(i).getAccion().equals("b1")) {
+					
 				LN.add(new TreeNode(n_actual, lS.get(i).getState(), lS.get(i).getAccion(), estrategia));
-				}
+				
 			}
 		return LN;
 	}

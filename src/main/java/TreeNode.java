@@ -192,7 +192,6 @@ public class TreeNode implements Comparable<TreeNode> {
 				return -1;
 			}
 		}
-
 	}
 
 	@Override
